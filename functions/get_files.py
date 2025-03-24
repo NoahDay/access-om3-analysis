@@ -77,7 +77,7 @@ def open_by_experiment(exp_name, vars, VARS_2D, RUN_DICT, catalog):
     
     elif RUN_DICT[exp_name]["model"] == "access-om2-dev":
         # Else, it is a development expt and stored on ps29
-        base_dir = f"/scratch/ps29/nd0349/{exp_name[0:10].lower()}/archive/{RUN_DICT[exp_name]['expt']}/"
+        base_dir = f"/g/data/ps29/nd0349/runs/{exp_name[0:10].lower()}/archive/{RUN_DICT[exp_name]['expt']}/"
         output_dirs = glob.glob(os.path.join(base_dir, "output[0-9][0-9][0-9]"))
         
         # Extract most recent simulation
@@ -86,12 +86,24 @@ def open_by_experiment(exp_name, vars, VARS_2D, RUN_DICT, catalog):
             output_number = f"{output_number:03d}"  # Ensure it stays in 000 format
         else:
             output_number = "000"  # Default if no directories exist
+
+        most_recent_file = False
+        if most_recent_file:
+            print(f"Output folder: {output_number}")
+            files = sorted(glob.glob(file_pattern))
+        else:
+            all_files = []
+            for output_dir in output_dirs:
+                file_pattern = os.path.join(output_dir, "ice/OUTPUT/", "iceh.????-??.nc")
+                all_files.extend(glob.glob(file_pattern))
+            files = sorted(all_files)
         
-        path = os.path.join(base_dir, f"output{output_number}", "ice/OUTPUT/")
-        file_pattern = os.path.join(path, "iceh.????-??.nc")
-        files = sorted(glob.glob(file_pattern))
-        file_list = sorted(glob.glob(file_pattern))
-        print(files)
+        # path = os.path.join(base_dir, f"output{output_number}", "ice/OUTPUT/")
+        # file_pattern = os.path.join(path, "iceh.????-??.nc")
+        # files = sorted(glob.glob(file_pattern))
+        # file_list = sorted(glob.glob(file_pattern))
+        # print(file_pattern)
+        # print(files)
         sample_ds = xr.open_mfdataset(files[0],combine="by_coords")
 
         # List of variables to keep
@@ -148,7 +160,7 @@ def open_by_experiment(exp_name, vars, VARS_2D, RUN_DICT, catalog):
             file_pattern = os.path.join(base_dir, "access-om3.cice.1mon.mean.????-??.nc")
         else:
         
-            base_dir = f"/scratch/ps29/nd0349/{exp_name[0:10].lower()}/archive/{RUN_DICT[exp_name]['expt']}/"
+            base_dir = f"/g/data/ps29/nd0349/runs/{exp_name[0:10].lower()}/archive/{RUN_DICT[exp_name]['expt']}/"
             # base_dir = f" /g/data/ps29/nd0349/access-om2/archive/{exp_name[0:10].lower()}/archive/{RUN_DICT[exp_name]['expt']}/"
            
             output_dirs = glob.glob(os.path.join(base_dir, "output[0-9][0-9][0-9]"))
