@@ -69,7 +69,7 @@ def get_plot_settings(var_name):
     return plot_settings.get(base_var, {"cmap": cmo.gray, "vmin": 0, "vmax": 1})
 
 # -----------------------------------------------------------------------------
-def basic_axis(dims, hemisphere="south", projection=ccrs.SouthPolarStereo(true_scale_latitude=-70)):
+def basic_axis(dims, hemisphere="south", projection=ccrs.SouthPolarStereo(true_scale_latitude=-70), shape="circle"):
     if hemisphere=="south":
         projection = ccrs.SouthPolarStereo(true_scale_latitude=-70)
         extent = [-180, 180, -90, -45]
@@ -108,12 +108,13 @@ def basic_axis(dims, hemisphere="south", projection=ccrs.SouthPolarStereo(true_s
         ax.add_feature(cft.LAND)
         ax.set_extent(extent, crs=ccrs.PlateCarree())
 
-        # Make a circle plot
-        theta = np.linspace(0, 2*np.pi, 100)
-        center, radius = [0.5, 0.5], 0.5
-        verts = np.vstack([np.sin(theta), np.cos(theta)]).T
-        circle = mpath.Path(verts * radius + center)
-        ax.set_boundary(circle, transform=ax.transAxes)
+        if shape == "circle":
+            # Make a circle plot
+            theta = np.linspace(0, 2*np.pi, 100)
+            center, radius = [0.5, 0.5], 0.5
+            verts = np.vstack([np.sin(theta), np.cos(theta)]).T
+            circle = mpath.Path(verts * radius + center)
+            ax.set_boundary(circle, transform=ax.transAxes)
     
     # Hide unused subplots if necessary
     for ax in axes.flat[number_panels:]:
