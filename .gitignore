@@ -1,3 +1,5 @@
 figures/
 functions/chatgpt_script.py
 *.nc
+.DS_Store
+functions/.DS_Store
