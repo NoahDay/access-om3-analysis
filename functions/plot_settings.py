@@ -18,6 +18,7 @@ import numpy as np
 
 # -----------------------------------------------------------------------------
 plot_settings = {
+    # CICE
     "aice": {"cmap": cmo.ice, "vmin": 0, "vmax": 1},
     "fsdrad": {"cmap": cmo.thermal, "vmin": 0, "vmax": 850},
     "hi": {"cmap": cmo.deep, "vmin": 0, "vmax": 5},
@@ -44,6 +45,11 @@ plot_settings = {
     "uocn": {"cmap": cmo.balance, "vmin": -0.5, "vmax": 0.5},
     "vocn": {"cmap": cmo.balance, "vmin": -0.5, "vmax": 0.5},
     "wave_sig_ht": {"cmap": cmo.tempo, "vmin": 0, "vmax": 10}, 
+    # MOM6
+    "tos": {"cmap": cmo.thermal, "vmin": -8, "vmax": 20},
+    "sos": {"cmap": cmo.haline, "vmin": 32, "vmax": 37},
+    "speed": {"cmap": "viridis", "vmin": 0, "vmax": 0.5}, 
+    # WW3
     "HS": {"cmap": cmo.tempo, "vmin": 0, "vmax": 10}, 
     "ICE": {"cmap": cmo.ice, "vmin": 0, "vmax": 1},
     "ICEH": {"cmap": cmo.deep, "vmin": 0, "vmax": 5},
@@ -56,6 +62,9 @@ plot_settings = {
     "EF": {"cmap": cmo.ice, "vmin": 0, "vmax": 1},
     "IC1": {"cmap": cmo.ice, "vmin": 0, "vmax": 1},
     "IC5": {"cmap": cmo.ice, "vmin": 0, "vmax": 1},
+    "THM": {"cmap": plt.cm.twilight_shifted, "vmin": -np.pi, "vmax": np.pi},
+    "FP0": {"cmap": "viridis", "vmin": 0, "vmax": 0.5},
+
 }
 
 ["Tair", "uatm", "vatm", "Qref", "fswdn", "flwdn", "snow"]
