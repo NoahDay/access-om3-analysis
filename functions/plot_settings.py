@@ -47,7 +47,7 @@ plot_settings = {
     "wave_sig_ht": {"cmap": cmo.tempo, "vmin": 0, "vmax": 10}, 
     # MOM6
     "tos": {"cmap": cmo.thermal, "vmin": -8, "vmax": 20},
-    "sos": {"cmap": cmo.haline, "vmin": 32, "vmax": 37},
+    "sos": {"cmap": cmo.haline, "vmin": 33, "vmax": 35},
     "speed": {"cmap": "viridis", "vmin": 0, "vmax": 0.5}, 
     # WW3
     "HS": {"cmap": cmo.tempo, "vmin": 0, "vmax": 10}, 
