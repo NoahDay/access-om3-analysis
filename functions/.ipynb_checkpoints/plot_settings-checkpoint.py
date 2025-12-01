@@ -137,10 +137,18 @@ def add_ice_contours(ax, ds_plot, hemisphere, projection):
         lat = 'lat'
         lon = 'lon'
         ice = 'ICE'
+    elif ds_plot.attrs['intake_esm_attrs:realm'] == 'ocean':
+        # lat = 'geolat'
+        # lon = 'geolon'
+        lat = 'lat'
+        lon = 'lon'
     else:
         lat = 'TLAT'
         lon = 'TLON'
         ice = 'aice'
+
+    if 'aice_m' in ds_plot.data_vars:
+        ds_plot = ds_plot.rename({'aice_m': 'aice'})
         
     transformed_coor=projection.transform_points(ccrs.PlateCarree(),ds_plot[lon].values,ds_plot[lat].values)
     x_ster,y_ster=transformed_coor[:,:,0],transformed_coor[:,:,1]
