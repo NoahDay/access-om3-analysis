@@ -22,6 +22,7 @@ plot_settings = {
     "aice": {"cmap": cmo.ice, "vmin": 0, "vmax": 1},
     "fsdrad": {"cmap": cmo.thermal, "vmin": 0, "vmax": 850},
     "hi": {"cmap": cmo.deep, "vmin": 0, "vmax": 5},
+    "thickness": {"cmap": cmo.deep, "vmin": 0, "vmax": 5},
     "hs": {"cmap": cmo.amp, "vmin": 0, "vmax": 0.5},
     "iage": {"cmap": cmo.dense, "vmin": 0, "vmax": 2},
     "icespd": {"cmap": cmo.amp, "vmin": 0, "vmax": 0.5},
