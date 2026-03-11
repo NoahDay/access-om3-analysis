@@ -50,6 +50,7 @@ plot_settings = {
     "tos": {"cmap": cmo.thermal, "vmin": -8, "vmax": 20},
     "sos": {"cmap": cmo.haline, "vmin": 33, "vmax": 35},
     "speed": {"cmap": "viridis", "vmin": 0, "vmax": 0.5}, 
+    "mlotst": {"cmap": "viridis", "vmin": 0, "vmax": 1000}, 
     # WW3
     "HS": {"cmap": cmo.tempo, "vmin": 0, "vmax": 10}, 
     "ICE": {"cmap": cmo.ice, "vmin": 0, "vmax": 1},

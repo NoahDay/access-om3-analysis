@@ -84,6 +84,6 @@ def integrateFloeSize(ds, var):
     part1 = parts[0]
     part2 = parts[1]
     ds_out[var].attrs['long_name'] = part1[:-3] + 'rep. radius:' + part2
-    ds_out['dafsd_wave_ra'].attrs['units'] = 'm/timestep'
+    ds_out[f'{var}_ra'].attrs['units'] = 'm/timestep'
 
     return ds_out
