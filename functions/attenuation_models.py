@@ -7,6 +7,8 @@
 # -----------------------------------------------------------------------------
 import numpy as np
 
+
+
 def get_ww3_freqs(nk=25):
     """
     Generate WW3 frequency bins and corresponding periods.
@@ -22,7 +24,21 @@ def get_ww3_freqs(nk=25):
     freqs = f1 * xfr**np.arange(nk)
     periods = 1.0 / freqs
     return freqs, periods
-
+# 
+def kohout_2008_attenuation(period, thickness):
+    # Inputs (example placeholders)
+    ICECOEF1 = thickness
+    HICE = ICECOEF1  # ice thickness
+    TPI_SIG = period # TPI/SIG
+    # TPI and SIG should already be defined
+    
+    KARG1 = -0.3203 + 2.058 * HICE - 0.9375 * TPI_SIG
+    KARG2 = -0.4269 * HICE**2 + 0.1566 * HICE * TPI_SIG
+    KARG3 = 0.0006 * TPI_SIG**2
+    
+    ALPHA = np.exp(KARG1 + KARG2 + KARG3)
+    WN_I = 0.5 * ALPHA
+    return ALPHA
 # -----------------------------------------------------------------------------
 def kohout_2014_attenuation(Hs_init=1.0):
     """

@@ -66,6 +66,8 @@ plot_settings = {
     "IC5": {"cmap": cmo.ice, "vmin": 0, "vmax": 1},
     "THM": {"cmap": plt.cm.twilight_shifted, "vmin": -np.pi, "vmax": np.pi},
     "FP0": {"cmap": "viridis", "vmin": 0, "vmax": 0.5},
+    "UAX": {"cmap": cmo.balance, "vmin": -20, "vmax": 20},
+    "UAY": {"cmap": cmo.balance, "vmin": -20, "vmax": 20},
 
 }
 
