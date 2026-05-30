@@ -1,0 +1,28 @@
+#!/bin/bash
+#PBS -P ps29
+#PBS -q normal
+#PBS -l walltime=12:00:00
+#PBS -l ncpus=16
+#PBS -l mem=128GB
+#PBS -l jobfs=100GB
+#PBS -l storage=gdata/rt52+gdata/ps29+gdata/xp65
+#PBS -N era5_sia_sie
+#PBS -j oe
+
+set -euo pipefail
+
+cd "$PBS_O_WORKDIR"
+
+module use /g/data/xp65/public/modules
+module load conda/analysis3-26.04
+
+export OMP_NUM_THREADS=1
+export MKL_NUM_THREADS=1
+export OPENBLAS_NUM_THREADS=1
+export HDF5_USE_FILE_LOCKING=FALSE
+
+python3 -u calc_era5_sea_ice_area_extent.py \
+  --overwrite \
+  --n-workers 4 \
+  --time-chunk 24 \
+  --years-per-file 10

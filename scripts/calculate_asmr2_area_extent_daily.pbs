@@ -1,0 +1,30 @@
+#!/bin/bash
+#PBS -P ps29
+#PBS -N asmr2_sia_sie
+#PBS -q normal
+#PBS -l walltime=12:00:00
+#PBS -l ncpus=4
+#PBS -l mem=32GB
+#PBS -l jobfs=10GB
+#PBS -l storage=gdata/ps29+gdata/xp65+scratch/ps29
+#PBS -l wd
+
+set -euo pipefail
+
+cd /home/566/nd0349/access-om3-analysis/scripts
+
+module use /g/data/xp65/public/modules
+module load conda/analysis3-26.04
+
+export OMP_NUM_THREADS=1
+export MKL_NUM_THREADS=1
+export OPENBLAS_NUM_THREADS=1
+export HDF5_USE_FILE_LOCKING=FALSE
+
+python3 -u calculate_asmr2_area_extent_daily.py \
+    --input-dir /g/data/ps29/nd0349/datasets/uni-bremen/ASMR2/antarctic \
+    --outdir /g/data/ps29/nd0349/datasets/uni-bremen/ASMR2/processed \
+    --prefix asmr2_antarctic_sea_ice_area_extent_daily \
+    --years-per-file 10 \
+    --time-chunk 31 \
+    --n-workers "${PBS_NCPUS:-4}"

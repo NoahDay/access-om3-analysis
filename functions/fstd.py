@@ -1,3 +1,8 @@
+# -----------------------------------------------------------------------------
+# Processing scripts for handling the joint floe size and ice thickness distribution (FSTD)
+# Author: Noah Day (University of Melbourne), October 2025
+# -----------------------------------------------------------------------------
+
 import xarray as xr
 import numpy as np
 from tqdm import tqdm

@@ -1,0 +1,40 @@
+#!/bin/bash
+#PBS -P ps29
+#PBS -q normal
+#PBS -l walltime=12:00:00
+#PBS -l ncpus=4
+#PBS -l mem=32GB
+#PBS -l jobfs=10GB
+#PBS -l storage=gdata/ps29+gdata/xp65+scratch/ps29
+#PBS -N asmr2_sic_clim
+#PBS -j oe
+#PBS -l wd
+
+set -euo pipefail
+set -x
+
+cd /home/566/nd0349/access-om3-analysis/scripts
+
+module use /g/data/xp65/public/modules
+module load conda/analysis3-26.04
+
+export OMP_NUM_THREADS=1
+export MKL_NUM_THREADS=1
+export OPENBLAS_NUM_THREADS=1
+export HDF5_USE_FILE_LOCKING=FALSE
+
+echo "PBS_O_WORKDIR=${PBS_O_WORKDIR:-}"
+echo "PWD=$(pwd)"
+echo "Python=$(command -v python3)"
+python3 --version
+
+ls -lh calc_asmr2_sic_climatology.py
+head -40 calc_asmr2_sic_climatology.py
+
+python3 -u calc_asmr2_sic_climatology.py \
+  --overwrite \
+  --n-workers "${PBS_NCPUS:-4}" \
+  --time-chunk 31
+
+ls -lh /g/data/ps29/nd0349/datasets/uni-bremen/ASMR2/processed/
+ls -lh /g/data/ps29/nd0349/datasets/uni-bremen/ASMR2/processed/asmr2_sic_monthly_climatology.nc

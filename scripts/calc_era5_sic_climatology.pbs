@@ -1,0 +1,39 @@
+#!/bin/bash
+#PBS -P ps29
+#PBS -q normal
+#PBS -l walltime=12:00:00
+#PBS -l ncpus=16
+#PBS -l mem=128GB
+#PBS -l jobfs=100GB
+#PBS -l storage=gdata/rt52+gdata/ps29+gdata/xp65
+#PBS -N era5_sic_clim
+#PBS -j oe
+
+set -euo pipefail
+set -x
+
+cd "$PBS_O_WORKDIR"
+
+module use /g/data/xp65/public/modules
+module load conda/analysis3-26.04
+
+export OMP_NUM_THREADS=1
+export MKL_NUM_THREADS=1
+export OPENBLAS_NUM_THREADS=1
+export HDF5_USE_FILE_LOCKING=FALSE
+
+echo "PBS_O_WORKDIR=$PBS_O_WORKDIR"
+echo "PWD=$(pwd)"
+echo "Python=$(command -v python3)"
+python3 --version
+
+ls -lh calc_era5_sic_climatology.py
+head -40 calc_era5_sic_climatology.py
+
+python3 -u calc_era5_sic_climatology.py \
+  --overwrite \
+  --n-workers 8 \
+  --time-chunk 24
+
+ls -lh /g/data/ps29/nd0349/datasets/ERA5/
+ls -lh /g/data/ps29/nd0349/datasets/ERA5/era5_sic_monthly_climatology.nc

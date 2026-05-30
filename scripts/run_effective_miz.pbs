@@ -1,0 +1,19 @@
+#!/bin/bash
+#PBS -P ps29
+#PBS -q normal
+#PBS -l walltime=24:00:00
+#PBS -l mem=64GB
+#PBS -l ncpus=16
+#PBS -l storage=gdata/ps29+gdata/rt52+gdata/xp65
+#PBS -j oe
+
+module use /g/data/xp65/public/modules
+module load conda/analysis3-26.03
+
+cd /home/566/nd0349/access-om3-analysis/scripts
+
+for year in {2015..2024}; do
+    echo "Processing ${year}"
+    python3 make_effective_miz_era5.py --year "${year}" --n-points 50
+done
+
